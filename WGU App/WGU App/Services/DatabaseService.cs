@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WGU_App.Models
+namespace WGU_App.Services
 {
-    public class Course
+    public static class DatabaseService
     {
+
+
+
     }
 }

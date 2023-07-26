@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WGU_App.Models
 {
-    internal class Term
+    public class Term
     {
     }
 }
