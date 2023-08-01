@@ -26,6 +26,19 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" >Term Name</label>
+                            <label Text="{Binding TermName}"  
+                                   FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" >Term ID</label>
+                            <label Text="{Binding Id}"  
+                                   FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            
+                            
                             
                             
                         </Grid>
