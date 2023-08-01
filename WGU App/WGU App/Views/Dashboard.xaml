@@ -2,8 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WGU_App.Views.Dashboard">
-    <ContentPage.Content>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="AddTerm" Text="Add Term" Clicked="AddTerm_Clicked"></ToolbarItem>
+        <ToolbarItem x:Name="ViewTerms" Text="View Terms" Clicked="ViewTerms_Clicked"></ToolbarItem>
         
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+
         <StackLayout>
             <Label Text="Welcome to WGU!"
                 VerticalOptions="CenterAndExpand" 

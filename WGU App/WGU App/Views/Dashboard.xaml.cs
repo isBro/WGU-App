@@ -23,5 +23,15 @@ namespace WGU_App.Views
             Console.WriteLine("Button Pressed!");
             DisplayAlert("Button Pressed", "Button Pressed!", "OK");
         }
+
+        private async void AddTerm_Clicked(object sender, EventArgs e)
+        {
+            Console.WriteLine("Add Term Button Pressed!");
+        }
+
+        private void ViewTerms_Clicked(object sender, EventArgs e)
+        {
+            Console.WriteLine("View Terms Button Pressed!");
+        }
     }
 }
