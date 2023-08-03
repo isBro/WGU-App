@@ -12,9 +12,8 @@ namespace WGU_App.Models
         public int Id { get; set; }
         public string TermName { get; set; }
 
-        public Term(int id, string termName)
+        public Term(string termName)
         {
-            Id = id;
             TermName = termName;
         }
 

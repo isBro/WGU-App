@@ -3,50 +3,53 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WGU_App.Views.TermList">
     <ContentPage.Content>
-        <CollectionView x:Name="TermCollectionView"
+
+        <StackLayout>
+            <!--<CollectionView x:Name="TermCollectionView"
                         ItemsSource="{Binding Term}"
                         EmptyView="No Terms to display"
                         SelectionMode= "Single"
-                        SelectionChanged="TermCollectionView_SelectionChanged>
-                        
-             <CollectionView.ItemsLayout>
-                 <LinearItemsLayout Orientation="Vertical"
+                        SelectionChanged="TermCollectionView_SelectionChanged">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
                                     ItemSpacing="10" />
-             </CollectionView.ItemsLayout>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Grid Padding="5" RowSpacing="1" ColumnSpacing="22" BackgroundColor="WhiteSmoke">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" >Term Name</Label>
+                                <Label Text="{Binding TermName}"  
+                                   FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                                <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" >Term ID</Label>
+                                <Label Text="{Binding Id}"  
+                                   FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            </Grid>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+
+            </CollectionView>-->
             
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout>
-                        <Grid Padding="5" RowSpacing="1" ColumnSpacing="22" BackgroundColor="WhiteSmoke">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            
-                            <label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" >Term Name</label>
-                            <label Text="{Binding TermName}"  
-                                   FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"/>
-                            <label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" >Term ID</label>
-                            <label Text="{Binding Id}"  
-                                   FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"/>
-                            
-                            
-                            
-                            
-                        </Grid>
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
+            
 
+        </StackLayout>
 
-        </CollectionView>
     </ContentPage.Content>
 </ContentPage>

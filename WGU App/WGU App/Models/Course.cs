@@ -21,7 +21,17 @@ namespace WGU_App.Models
         //public Picker Status { get; set; }
         public int TermId { get; set; }
 
+        public Course(string name, string title, string description, DateTime startDate, DateTime endDate, int termId)
+        {
+            Name = name;
+            Title = title;
+            Description = description;
+            StartDate = startDate;
+            EndDate = endDate;
+            TermId = termId;
+        }
 
+        public Course() { }
 
     }
 }
