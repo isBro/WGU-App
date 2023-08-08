@@ -15,6 +15,18 @@ namespace WGU_App.Models
         public string InstructorEmail { get; set;}
         public string InstructorPhone { get; set;}
 
+        public CourseInstructor() { }
+
+        public CourseInstructor(int courseId, string instructorName, string instructorEmail, string instructorPhone)
+        {
+
+            CourseId = courseId;
+            InstructorName = instructorName;
+            InstructorEmail = instructorEmail;
+            InstructorPhone = instructorPhone;
+
+        }
+
 
 
     }

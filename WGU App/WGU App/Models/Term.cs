@@ -11,10 +11,14 @@ namespace WGU_App.Models
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string TermName { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
 
-        public Term(string termName)
+        public Term(string termName, DateTime startDate, DateTime endDate)
         {
             TermName = termName;
+            StartDate = startDate;
+            EndDate = endDate;
         }
 
         public Term() { }

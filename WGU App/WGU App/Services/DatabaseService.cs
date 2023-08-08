@@ -36,14 +36,16 @@ namespace WGU_App.Services
 
         #region Term methods
 
-        public static async Task AddTerm(string termName)
+        public static async Task AddTerm(string termName, DateTime startDate, DateTime endDate)
         {
 
             await Init();
 
             var term = new Term()
             {
-                TermName = termName
+                TermName = termName,
+                StartDate = startDate,
+                EndDate = endDate
 
             };
             await db.InsertAsync(term);
@@ -79,7 +81,7 @@ namespace WGU_App.Services
 
         }
 
-        public static async Task UpdateTerm(int id, string name)
+        public static async Task UpdateTerm(int id, string name, DateTime startDate, DateTime endDate)
         {
             await Init();
 
@@ -90,6 +92,9 @@ namespace WGU_App.Services
             if (termQuery != null)
             {
                 termQuery.TermName = name;
+                termQuery.StartDate = startDate;
+                termQuery.EndDate = endDate;
+
             }
 
             await db.UpdateAsync(termQuery);
@@ -98,6 +103,7 @@ namespace WGU_App.Services
 
 
         #endregion
+
         #region Course methods
 
         public static async Task AddCourse(int termId, string name, string title,  string description, DateTime startDate, DateTime endDate)
@@ -166,26 +172,43 @@ namespace WGU_App.Services
 
 
         #endregion
+
         #region CourseInstructor methods
+
+        public static async Task AddCourseInstructor(int courseId, string instructorName, string instructorEmail, string instructorPhone)
+        {
+            await Init();
+
+            var courseInstructor = new CourseInstructor(courseId, instructorName, instructorEmail, instructorPhone);
+
+            await db.InsertAsync(courseInstructor);
+
+            int id = courseInstructor.Id;
+
+        }
+
+
         #endregion
+
         #region  CourseAssessment methods
         #endregion
+
         #region Demo methods
 
         public static async void LoadSampleData()
         {
             await Init();
 
-            var term = new Term("Fall Term");
+            var term = new Term("Fall Term", DateTime.Parse("2023-01-09"), DateTime.Parse("2023-11-01"));
             await db.InsertAsync(term);
 
-            var term2 = new Term("Winter Term");
+            var term2 = new Term("Winter Term", DateTime.Parse("2023-01-01"), DateTime.Parse("2023-05-01"));
             await db.InsertAsync(term2);
 
-            var term3 = new Term("Spring Term");
+            var term3 = new Term("Spring Term", DateTime.Parse("2023-04-01"), DateTime.Parse("2023-07-01"));
             await db.InsertAsync(term3);
 
-            var term4 = new Term("summer Term");
+            var term4 = new Term("summer Term", DateTime.Parse("2023-07-01"), DateTime.Parse("2023-09-01"));
             await db.InsertAsync(term4);
 
             var course1 = new Course("C101", "English", "Prerequisite English", DateTime.Parse("2023-01-01"),DateTime.Parse("2023-05-01"), term.Id );
@@ -215,6 +238,7 @@ namespace WGU_App.Services
         }
 
         #endregion
+
         #region Count Determinations
         public static async Task<int> GetCourseCountAsync(int selectedTermId)
         {
@@ -223,6 +247,7 @@ namespace WGU_App.Services
         }
 
         #endregion
+
         #region Looping methods
 
         public static async void LoopingTermTable()
@@ -254,6 +279,7 @@ namespace WGU_App.Services
         }
 
         #endregion
+
 
 
 

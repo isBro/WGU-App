@@ -18,9 +18,16 @@ namespace WGU_App.Views
             InitializeComponent();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            DatabaseService.LoadSampleData();
+        }
+
         public void Button_Clicked(object sender, EventArgs e)
         {
             Console.WriteLine("Button Pressed!");
+            DatabaseService.ClearSampleData();
             DisplayAlert("Button Pressed", "Button Pressed!", "OK");
         }
 

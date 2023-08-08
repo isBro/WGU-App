@@ -2,11 +2,73 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WGU_App.Views.EditTerm">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save" x:Name="SaveTerm" Clicked="SaveTerm_Clicked"></ToolbarItem>
+        <ToolbarItem Text="Cancel" x:Name="CancelTerm" Clicked="CancelTerm_Clicked"></ToolbarItem>
+        <ToolbarItem Text="Delete" x:Name="DeleteTerm" Clicked="DeleteTerm_Clicked"></ToolbarItem>
+    </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
 
         <StackLayout>
-            <Grid Padding="5" RowSpacing="1" ColumnSpacing="22" BackgroundColor="WhiteSmoke">
+
+            <Button Text="Add Course" x:Name="AddCourseButton" Clicked="AddCourseButton_Clicked"></Button>
+            <CollectionView  x:Name="CourseCollectionView"
+                         ItemsSource="{Binding Course}"
+                         EmptyView="No courses to display"
+                         SelectionMode="Single"
+                         SelectionChanged="CourseCollectionView_SelectionChanged">
+
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <Grid Padding="5" RowSpacing="1" ColumnSpacing="22" BackgroundColor="WhiteSmoke">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course Name</Label>
+                                <Label Text="{Binding Name}" 
+                                   Grid.Row="0" Grid.Column="1" FontFamily="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                                <Label Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course Title</Label>
+                                <Label Text="{Binding Title}" 
+                                   Grid.Row="1" Grid.Column="1" FontFamily="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                                <Label Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course Description</Label>
+                                <Label Text="{Binding Description}" 
+                                   Grid.Row="2" Grid.Column="1" FontFamily="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+
+                                <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course Start</Label>
+                                <DatePicker Grid.Row="3" Grid.Column="1" x:Name="CourseStart"></DatePicker>
+                                <Label Grid.Row="4" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course End</Label>
+                                <DatePicker Grid.Row="4" Grid.Column="1" x:Name="CourseEnd"></DatePicker>
+                                <Label Grid.Row="5" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Term Id</Label>
+                                <Label Text="{Binding TermId}" Grid.Row="5" Grid.Column="1" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"></Label>
+
+                            </Grid>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+
+
+                </CollectionView>
+
+                <Grid Padding="5" RowSpacing="1" ColumnSpacing="22" BackgroundColor="WhiteSmoke">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -23,11 +85,22 @@
                 <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" >Term Name</Label>
                 <Entry Text="{Binding TermName}" x:Name = "TermName" Placeholder="Enter Term Name" Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center"></Entry>
                                    
-                <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" >Term ID</Label>
-                <Entry Text="{Binding Id}" x:Name = "TermId" Placeholder="Enter Term Name" Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center"></Entry>  
-                                   
+                <Label Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" >Term ID</Label>
+                <Entry Text="{Binding Id}" x:Name = "TermId" Placeholder="Enter Term Name" Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center"></Entry>
+
+                <Label Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" >Term Start</Label>
+                <DatePicker Grid.Row="2" Grid.Column="1" x:Name="StartDatePicker"></DatePicker>
+
+                <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" >Term End</Label>
+                <DatePicker Grid.Row="3" Grid.Column="1" x:Name="EndDatePicker"></DatePicker>
 
             </Grid>
+
+            
+            <Label Text="Course Count" FontSize="Large"></Label>
+            <Label x:Name="CountLabel" FontSize="Large"></Label>
+            <Label x:Name="LabelList" Text="Course List" FontSize="Large" FontAttributes="Bold"></Label>
+            <Label Text="__________________________"></Label>
         </StackLayout>
         
         

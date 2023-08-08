@@ -10,18 +10,16 @@ using Xamarin.Forms.Xaml;
 namespace WGU_App.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class AddCourse : ContentPage
+	public partial class CourseList : ContentPage
 	{
-		public AddCourse ()
+		public CourseList ()
 		{
 			InitializeComponent ();
 		}
 
-		public AddCourse(int termId)
-		{
-			InitializeComponent ();
+        private void CourseCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
-
-		}
-	}
+        }
+    }
 }

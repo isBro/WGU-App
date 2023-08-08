@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using WGU_App.Models;
 
 namespace WGU_App.Views
 {
@@ -13,6 +14,11 @@ namespace WGU_App.Views
 	public partial class EditCourse : ContentPage
 	{
 		public EditCourse ()
+		{
+			InitializeComponent ();
+		}
+
+		public EditCourse(Course course)
 		{
 			InitializeComponent ();
 		}
