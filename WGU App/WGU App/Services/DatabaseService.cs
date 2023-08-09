@@ -242,7 +242,7 @@ namespace WGU_App.Services
         #region Count Determinations
         public static async Task<int> GetCourseCountAsync(int selectedTermId)
         {
-            int courseCount = await db.ExecuteScalarAsync<int>($" SELECT COUNT(*) FROM Term WHERE TermId = ?", selectedTermId);
+            int courseCount = await db.ExecuteScalarAsync<int>($" SELECT COUNT(*) FROM Course WHERE TermId = ?", selectedTermId);
             return courseCount;
         }
 
