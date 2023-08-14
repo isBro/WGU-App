@@ -84,8 +84,9 @@ namespace WGU_App.Views
 
         private async void AddCourseButton_Clicked(object sender, EventArgs e)
         {
-            var termId = Int32.Parse(TermId.Text);
+            var termId = _selectedTermId;
             await Navigation.PushAsync(new AddCourse(termId));
+            await Navigation.PushAsync(new AddCourse());
         }
 
         private async void CourseCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -94,6 +95,8 @@ namespace WGU_App.Views
             if (e.CurrentSelection != null)
             {
                 await Navigation.PushAsync(new EditCourse(course));
+                //await Navigation.PushAsync(new EditCourse());
+                Console.WriteLine(course.Title);
             }
         }
     }

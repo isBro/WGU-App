@@ -32,20 +32,20 @@ namespace WGU_App.Views
             decimal tossedDecimal;
             int tossedInt;
 
-            //if (string.IsNullOrWhiteSpace(TermName.Text))
-            //{
-            //    await DisplayAlert("Missing Name", "Please enter a name.", "OK");
-            //    return;
-            //}
+            if (string.IsNullOrWhiteSpace(TermName.Text))
+            {
+                await DisplayAlert("Missing Name", "Please enter a name.", "OK");
+                return;
+            }
 
-            //await DatabaseService.UpdateTerm(_selectedTermId, TermName.Text, StartDatePicker.Date, EndDatePicker.Date);
+            await DatabaseService.AddTerm(TermName.Text, TermStart.Date, TermEnd.Date);
 
-            //await Navigation.PopAsync();
+            await Navigation.PopAsync();
         }
 
         private async void CancelTerm_Clicked(object sender, EventArgs e)
         {
-            await DisplayAlert("", "", "");
+            await DisplayAlert("Canceled", "Term addition canceled", "OK ");
             await Navigation.PopAsync();
         }
     }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using WGU_App.Models;
+using WGU_App.Services;
 
 namespace WGU_App.Views
 {
@@ -18,9 +19,87 @@ namespace WGU_App.Views
 			InitializeComponent ();
 		}
 
-		public EditCourse(Course course)
+        public EditCourse(Course selectedCourse)
 		{
 			InitializeComponent ();
+
+            CourseId.Text = $"{selectedCourse.Id}";
+            CourseName.Text = selectedCourse.Name ;
+            CourseTitle.Text = selectedCourse.Title ;
+            CourseDescription.Text = selectedCourse.Description ;
+            CourseStart.Date = selectedCourse.StartDate ;
+            CourseEnd.Date = selectedCourse.EndDate ;
+
+			
 		}
-	}
+
+        private async void SaveCourse_Clicked(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(CourseName.Text))
+            {
+                await DisplayAlert("Course name missing", "Please enter a course name", "OK");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(CourseTitle.Text))
+            {
+                await DisplayAlert("Course title missing", "Please enter a course title", "OK");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(CourseDescription.Text))
+            {
+                await DisplayAlert("Course description missing", "Please enter a course description", "OK");
+                return; 
+            }
+
+            await DatabaseService.UpdateCourse(int.Parse(CourseId.Text), CourseName.Text, CourseTitle.Text, CourseDescription.Text, CourseStart.Date, CourseEnd.Date);
+
+            await Navigation.PopAsync();
+
+
+
+        }
+
+        private async void CancelCourse_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
+        }
+
+        private async void DeleteCourse_Clicked(object sender, EventArgs e)
+        {
+            var answer = await DisplayAlert("Delete this course?", "Delete this course?", "Yes", "No");
+
+            if (answer == true)
+            {
+                await DatabaseService.RemoveCourse(int.Parse(CourseId.Text));
+
+                await DisplayAlert("Course deleted", "Course deleted", "OK");
+                
+                await Navigation.PopAsync();
+            }
+
+            else
+            {
+                await DisplayAlert("Delete canceled", "Nothing deleted", "OK");
+               
+            }
+
+            
+
+            
+
+
+        }
+
+        private void ShareButton_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ShareUrl_Clicked(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

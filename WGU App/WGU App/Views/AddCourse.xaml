@@ -2,11 +2,46 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WGU_App.Views.AddCourse">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="SaveCourse" Text="Save" Clicked="SaveCourse_Clicked"></ToolbarItem>
+        <ToolbarItem x:Name="CancelCourse" Text="Cancel" Clicked="CancelCourse_Clicked"></ToolbarItem>
+        <ToolbarItem x:Name="Home" Text="Home" Clicked="Home_Clicked"></ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Grid ColumnSpacing="1" Padding="5" BackgroundColor="WhiteSmoke">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0">Course Id</Label>
+                <Label Grid.Row="0" Grid.Column="1" x:Name="CourseId" VerticalTextAlignment="Center" FontAttributes="Bold" Text="{Binding Id}"></Label>
+
+                <Label Grid.Row="1" Grid.Column="0" VerticalTextAlignment="Center" FontAttributes="Bold">Course Name</Label>
+                <Entry Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center" FontAttributes="Bold" Placeholder="Enter a course name" x:Name="CourseName" Text="{Binding Name}"></Entry>
+
+                <Label Grid.Row="2" Grid.Column="0" VerticalTextAlignment="Center" FontAttributes="Bold">Course Title</Label>
+                <Entry Grid.Row="2" Grid.Column="1" VerticalTextAlignment="Center" FontAttributes="Bold" Placeholder="Enter a course title" x:Name="CourseTitle" Text="{Binding Title}"></Entry>
+
+                <Label Grid.Row="3" Grid.Column="0" VerticalTextAlignment="Center" FontAttributes="Bold">Course Description</Label>
+                <Entry Grid.Row="3" Grid.Column="1" VerticalTextAlignment="Center" FontAttributes="Bold" Placeholder="Enter a course description" x:Name="CourseDescription" Text="{Binding Description}"></Entry>
+
+                <Label Grid.Row="4" Grid.Column="0" VerticalTextAlignment="Center" FontAttributes="Bold">Course Start</Label>
+                <DatePicker Grid.Row="4" Grid.Column="1" x:Name="CourseStart"></DatePicker>
+                
+                <Label Grid.Row="5" Grid.Column="0" VerticalTextAlignment="Center" FontAttributes="Bold">Course End</Label>
+                <DatePicker Grid.Row="5" Grid.Column="1" x:Name="CourseEnd"></DatePicker>
+
+                <Label Grid.Row="6" Grid.Column="0" Text="Notify" FontSize="Medium"></Label>
+                <Switch Grid.Row="6" Grid.Column="1" x:Name="Notification" IsToggled="True"></Switch>
+                
+            </Grid>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

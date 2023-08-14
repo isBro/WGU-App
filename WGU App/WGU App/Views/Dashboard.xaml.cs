@@ -33,7 +33,7 @@ namespace WGU_App.Views
 
         private async void AddTerm_Clicked(object sender, EventArgs e)
         {
-            Console.WriteLine("Add Term Button Pressed!");
+            await Navigation.PushAsync(new AddTerm());
         }
 
         private async void ViewTerms_Clicked(object sender, EventArgs e)
