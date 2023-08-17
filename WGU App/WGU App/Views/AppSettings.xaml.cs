@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using WGU_App.Services;
 
 namespace WGU_App.Views
 {
@@ -16,5 +17,15 @@ namespace WGU_App.Views
 		{
 			InitializeComponent ();
 		}
-	}
+
+        private void LoadSampleData_Clicked(object sender, EventArgs e)
+        {
+            DatabaseService.LoadSampleData();
+        }
+
+        private void ClearSampleData_Clicked(object sender, EventArgs e)
+        {
+            DatabaseService.ClearSampleData();
+        }
+    }
 }

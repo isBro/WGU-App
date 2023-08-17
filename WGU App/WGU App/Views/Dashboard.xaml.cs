@@ -18,19 +18,6 @@ namespace WGU_App.Views
             InitializeComponent();
         }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            DatabaseService.LoadSampleData();
-        }
-
-        public void Button_Clicked(object sender, EventArgs e)
-        {
-            Console.WriteLine("Button Pressed!");
-            DatabaseService.ClearSampleData();
-            DisplayAlert("Button Pressed", "Button Pressed!", "OK");
-        }
-
         private async void AddTerm_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new AddTerm());
@@ -40,6 +27,11 @@ namespace WGU_App.Views
         {
             Console.WriteLine("View Terms Button Pressed!");
             await Navigation.PushAsync(new TermList());
+        }
+
+        private async void AppSettings_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AppSettings());
         }
     }
 }
