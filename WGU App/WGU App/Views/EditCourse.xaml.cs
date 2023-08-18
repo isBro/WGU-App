@@ -19,6 +19,8 @@ namespace WGU_App.Views
 			InitializeComponent ();
 		}
 
+        private readonly int selectedTermId;
+        private readonly int instructorId;
         public EditCourse(Course selectedCourse)
 		{
 			InitializeComponent ();
@@ -29,6 +31,8 @@ namespace WGU_App.Views
             CourseDescription.Text = selectedCourse.Description ;
             CourseStart.Date = selectedCourse.StartDate ;
             CourseEnd.Date = selectedCourse.EndDate ;
+            Notification.IsToggled = selectedCourse.StartNotification;
+            selectedTermId = selectedCourse.TermId ;
 
 			
 		}
@@ -53,7 +57,7 @@ namespace WGU_App.Views
                 return; 
             }
 
-            await DatabaseService.UpdateCourse(int.Parse(CourseId.Text), CourseName.Text, CourseTitle.Text, CourseDescription.Text, CourseStart.Date, CourseEnd.Date);
+            await DatabaseService.UpdateCourse(int.Parse(CourseId.Text), CourseName.Text, CourseTitle.Text, CourseDescription.Text, CourseStart.Date, CourseEnd.Date, Notification.IsToggled, selectedTermId);
 
             await Navigation.PopAsync();
 
@@ -94,6 +98,8 @@ namespace WGU_App.Views
 
         private void ShareButton_Clicked(object sender, EventArgs e)
         {
+
+           
 
         }
 

@@ -26,6 +26,7 @@ namespace WGU_App.Views
             InitializeComponent ();
 
             _selectedTermId = term.Id;
+            TermId.Text = $"{_selectedTermId}";
             TermName.Text = term.TermName;
             StartDatePicker.Date = term.StartDate;
             EndDatePicker.Date = term.EndDate;
@@ -39,7 +40,7 @@ namespace WGU_App.Views
 
             int countCourses = await DatabaseService.GetCourseCountAsync(_selectedTermId);
             CountLabel.Text = countCourses.ToString();
-            CourseCollectionView.ItemsSource = await DatabaseService.GetCourses();
+            CourseCollectionView.ItemsSource = await DatabaseService.GetCourses(_selectedTermId);
         }
 
         private async void SaveTerm_Clicked(object sender, EventArgs e)
@@ -86,7 +87,7 @@ namespace WGU_App.Views
         {
             var termId = _selectedTermId;
             await Navigation.PushAsync(new AddCourse(termId));
-            await Navigation.PushAsync(new AddCourse());
+            //await Navigation.PushAsync(new AddCourse());
         }
 
         private async void CourseCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -95,7 +96,6 @@ namespace WGU_App.Views
             if (e.CurrentSelection != null)
             {
                 await Navigation.PushAsync(new EditCourse(course));
-                //await Navigation.PushAsync(new EditCourse());
                 Console.WriteLine(course.Title);
             }
         }

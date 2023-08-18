@@ -25,15 +25,16 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course Name</Label>
+                            <Label Grid.Row="0" Grid.Column="0" FontSize="Title" VerticalTextAlignment="Center" FontAttributes="Bold">Course Name</Label>
                             <Label Text="{Binding Name}" 
-                                   Grid.Row="0" Grid.Column="1" FontFamily="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                                   Grid.Row="0" Grid.Column="1" FontFamily="Medium" FontSize="Title" VerticalTextAlignment="Center" FontAttributes="Bold"/>
                             <Label Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course Title</Label>
                             <Label Text="{Binding Title}" 
                                    Grid.Row="1" Grid.Column="1" FontFamily="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"/>
@@ -42,9 +43,12 @@
                                    Grid.Row="2" Grid.Column="1" FontFamily="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"/>
                             
                             <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course Start</Label>
-                            <DatePicker Grid.Row="3" Grid.Column="1" x:Name="CourseStart"></DatePicker>
+                            <DatePicker Grid.Row="3" Grid.Column="1" x:Name="CourseStart" ></DatePicker>
                             <Label Grid.Row="4" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course End</Label>
                             <DatePicker Grid.Row="4" Grid.Column="1" x:Name="CourseEnd"></DatePicker>
+
+                      
+
 
                         </Grid>
                     </StackLayout>

@@ -32,6 +32,7 @@ namespace WGU_App.Views
 
         private async void SaveCourse_Clicked(object sender, EventArgs e)
         {
+
 			if (String.IsNullOrWhiteSpace(CourseName.Text))
 			{
 				await DisplayAlert("Course name missing", "Please enter a course name", "OK");
@@ -50,7 +51,9 @@ namespace WGU_App.Views
 				return;
             }
 
-			await DatabaseService.AddCourse(_selectedTermId, CourseName.Text, CourseTitle.Text, CourseDescription.Text, CourseStart.Date, CourseEnd.Date);
+			
+
+			await DatabaseService.AddCourse(_selectedTermId, CourseName.Text, CourseTitle.Text, CourseDescription.Text, CourseStart.Date, CourseEnd.Date, Notification.IsToggled);
 			await Navigation.PopAsync();
 
 

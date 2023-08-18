@@ -106,7 +106,7 @@ namespace WGU_App.Services
 
         #region Course methods
 
-        public static async Task AddCourse(int termId, string name, string title,  string description, DateTime startDate, DateTime endDate)
+        public static async Task AddCourse(int termId, string name, string title,  string description, DateTime startDate, DateTime endDate, bool startNotification)
         {
             await Init();
             var course = new Course
@@ -116,7 +116,8 @@ namespace WGU_App.Services
                 Title = title,
                 Description = description,
                 StartDate = startDate,
-                EndDate = endDate
+                EndDate = endDate,
+                StartNotification = startNotification
 
             };
 
@@ -151,7 +152,7 @@ namespace WGU_App.Services
 
         }
 
-        public static async Task UpdateCourse(int id, string name, string title, string description, DateTime startDate, DateTime endDate)
+        public static async Task UpdateCourse(int id, string name, string title, string description, DateTime startDate, DateTime endDate, bool startNotification, int termId)
         {
             await Init();
 
@@ -162,9 +163,12 @@ namespace WGU_App.Services
             if (courseQuery != null)
             {
                 courseQuery.Title = title;
+                courseQuery.Name = name;
                 courseQuery.Description = description;
                 courseQuery.StartDate = startDate;
                 courseQuery.EndDate = endDate;
+                courseQuery.StartNotification = startNotification;
+                courseQuery.TermId = termId;
 
                 await db.UpdateAsync(courseQuery);
             }
@@ -187,6 +191,51 @@ namespace WGU_App.Services
 
         }
 
+        public static async Task<IEnumerable<CourseInstructor>> GetCourseInstructors(int courseId)
+        {
+            await Init();
+
+            var instructors = await db.Table<CourseInstructor>()
+                .Where(i=>i.CourseId == courseId)
+                .ToListAsync();
+            
+            return instructors;
+        }
+
+        public static async Task<IEnumerable<CourseInstructor>> GetCourseInstructors()
+        {
+            await Init();
+            var instructors = await db.Table<CourseInstructor>().ToListAsync();
+
+            return instructors;
+
+
+        }
+
+        public static async Task RemoveCourseInstructor(int id)
+        {
+            await Init();
+            await db.DeleteAsync<CourseInstructor>(id);
+        }
+
+        public static async Task UpdateCourseInstructor(int id, string name, string email, string phone)
+        {
+            await Init();
+
+            var instructorQuery = await db.Table<CourseInstructor>()
+                .Where(i=>i.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (instructorQuery != null)
+            {
+                instructorQuery.InstructorName = name;
+                instructorQuery.InstructorEmail = email;
+                instructorQuery.InstructorPhone = phone;
+
+                await db.UpdateAsync(instructorQuery);
+
+            }
+        }
 
         #endregion
 
@@ -211,13 +260,13 @@ namespace WGU_App.Services
             var term4 = new Term("summer Term", DateTime.Parse("2023-07-01"), DateTime.Parse("2023-09-01"));
             await db.InsertAsync(term4);
 
-            var course1 = new Course("C101", "English", "Prerequisite English", DateTime.Parse("2023-01-01"),DateTime.Parse("2023-05-01"), term.Id );
+            var course1 = new Course("C101", "English", "Prerequisite English", DateTime.Parse("2023-01-01"),DateTime.Parse("2023-05-01"), term.Id, true );
             await db.InsertAsync(course1);
 
-            var course2 = new Course("C347", "Public Speaking", "Develop and reinforce public speaking skills", DateTime.Parse("2023-01-01"), DateTime.Parse("2023-05-01"), term2.Id);
+            var course2 = new Course("C347", "Public Speaking", "Develop and reinforce public speaking skills", DateTime.Parse("2023-01-01"), DateTime.Parse("2023-05-01"), term2.Id, true);
             await db.InsertAsync(course2);
 
-            var course3 = new Course("C767", "Python 2", "Algorithms and data analysis", DateTime.Parse("2023-01-01"), DateTime.Parse("2023-05-01"), term3.Id);
+            var course3 = new Course("C767", "Python 2", "Algorithms and data analysis", DateTime.Parse("2023-01-01"), DateTime.Parse("2023-05-01"), term3.Id, true);
             await db.InsertAsync(course3);
         }
 
@@ -254,7 +303,7 @@ namespace WGU_App.Services
         {
              await Init();
 
-            var allTermRecords = await db.QueryAsync<Term>("SELECT * FROM Gadget");
+            var allTermRecords = await db.QueryAsync<Term>("SELECT * FROM Term");
             foreach (var termRecord in allTermRecords)
             {
                 Console.WriteLine("Name: " + termRecord.TermName);
@@ -265,7 +314,7 @@ namespace WGU_App.Services
         public static async Task<List<Term>> GetNotifyTermAsync()
         {
             await Init();
-            var records = await db.QueryAsync<Term>("SELECT * FROM Gadget");
+            var records = await db.QueryAsync<Term>("SELECT * FROM Term");
 
             return records;
         }
@@ -273,7 +322,7 @@ namespace WGU_App.Services
         public static async Task<IEnumerable<Term>> GetNotificationTerms()
         {
             await Init();
-            var allTermRecords = await db.QueryAsync<Term>("SELECT * FROM Gadget");
+            var allTermRecords = await db.QueryAsync<Term>("SELECT * FROM Term");
 
             return allTermRecords;
         }

@@ -16,12 +16,14 @@ namespace WGU_App.Models
         public string Description { get; set; }
 
         public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; } 
+        public DateTime EndDate { get; set; }
 
         //public Picker Status { get; set; }
+
+        public bool StartNotification;
         public int TermId { get; set; }
 
-        public Course(string name, string title, string description, DateTime startDate, DateTime endDate, int termId)
+        public Course(string name, string title, string description, DateTime startDate, DateTime endDate, int termId, bool startNotification)
         {
             Name = name;
             Title = title;
@@ -29,6 +31,7 @@ namespace WGU_App.Models
             StartDate = startDate;
             EndDate = endDate;
             TermId = termId;
+            StartNotification = startNotification;
         }
 
         public Course() { }

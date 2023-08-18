@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using WGU_App.Models;
+using WGU_App.Services;
 
 namespace WGU_App.Views
 {
@@ -15,11 +17,27 @@ namespace WGU_App.Views
 		public CourseList ()
 		{
 			InitializeComponent ();
+
+
 		}
 
-        private void CourseCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        protected override async void OnAppearing()
         {
+            base.OnAppearing();
+            {
+                var courses = await DatabaseService.GetCourses();
+                CourseCollectionView.ItemsSource = courses;
+            }
+        }
 
+        private async void CourseCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var course = (Course)e.CurrentSelection.FirstOrDefault();
+
+            if (course != null)
+            {
+                await Navigation.PushAsync(new EditCourse(course));
+            }
         }
     }
 }

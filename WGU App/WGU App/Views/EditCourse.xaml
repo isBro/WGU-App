@@ -50,7 +50,7 @@
                 <Button Grid.Row="7" Grid.Column="1" FontSize="Medium" VerticalOptions="Center" Text="Share URL" Font="Medium" x:Name="ShareUrl" Clicked="ShareUrl_Clicked"></Button>
 
                 <Label Grid.Row="8" Grid.Column="0" Text="Notify" FontSize="Medium"></Label>
-                <Switch Grid.Row="8" Grid.Column="1" x:Name="Notification" IsToggled="True"></Switch>
+                <Switch Grid.Row="8" Grid.Column="1" x:Name="Notification" IsToggled="{Binding StartNotification}"></Switch>
 
 
 

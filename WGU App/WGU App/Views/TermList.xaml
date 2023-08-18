@@ -2,6 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WGU_App.Views.TermList">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="CourseList" Text="View Courses" Clicked="CourseList_Clicked"></ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <CollectionView 
             x:Name="TermCollectionView"
