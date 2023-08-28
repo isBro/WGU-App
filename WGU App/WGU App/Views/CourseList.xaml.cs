@@ -36,6 +36,8 @@ namespace WGU_App.Views
 
             if (course != null)
             {
+
+
                 await Navigation.PushAsync(new EditCourse(course));
             }
         }

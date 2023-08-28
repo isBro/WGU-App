@@ -41,13 +41,19 @@
                             <Label Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course Description</Label>
                             <Label Text="{Binding Description}" 
                                    Grid.Row="2" Grid.Column="1" FontFamily="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"/>
-                            
+
+
                             <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course Start</Label>
                             <DatePicker Grid.Row="3" Grid.Column="1" x:Name="CourseStart" ></DatePicker>
+                            
                             <Label Grid.Row="4" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course End</Label>
                             <DatePicker Grid.Row="4" Grid.Column="1" x:Name="CourseEnd"></DatePicker>
 
-                      
+                            <Label Grid.Row="5" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course Passed</Label>
+                            <Label Text ="{Binding IsPassed}" 
+                                   Grid.Row="5" Grid.Column="1" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+
+
 
 
                         </Grid>

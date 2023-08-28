@@ -53,7 +53,7 @@ namespace WGU_App.Views
 
 			
 
-			await DatabaseService.AddCourse(_selectedTermId, CourseName.Text, CourseTitle.Text, CourseDescription.Text, CourseStart.Date, CourseEnd.Date, Notification.IsToggled);
+			await DatabaseService.AddCourse(_selectedTermId, CourseName.Text, CourseTitle.Text, CourseDescription.Text, CourseStart.Date, CourseEnd.Date, Notification.IsToggled, false);
 			await Navigation.PopAsync();
 
 

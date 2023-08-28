@@ -55,7 +55,7 @@ namespace WGU_App.Services
         public static async Task RemoveTerm(int id)
         {
             await Init();
-            await db.DeleteAsync(id);
+            await db.DeleteAsync<Term>(id);
         }
 
         public static async Task<IEnumerable<Term>> GetTerms(int id)
@@ -106,7 +106,7 @@ namespace WGU_App.Services
 
         #region Course methods
 
-        public static async Task AddCourse(int termId, string name, string title,  string description, DateTime startDate, DateTime endDate, bool startNotification)
+        public static async Task AddCourse(int termId, string name, string title,  string description, DateTime startDate, DateTime endDate, bool startNotification, bool isPassed)
         {
             await Init();
             var course = new Course
@@ -117,7 +117,9 @@ namespace WGU_App.Services
                 Description = description,
                 StartDate = startDate,
                 EndDate = endDate,
-                StartNotification = startNotification
+                StartNotification = startNotification,
+                IsPassed = isPassed
+                
 
             };
 
@@ -136,7 +138,7 @@ namespace WGU_App.Services
         {
             await Init();
             var courses = await db.Table<Course>()
-                .Where(i => i.Id == termId) 
+                .Where(i => i.TermId == termId) 
                 .ToListAsync();
 
             return courses;
@@ -152,7 +154,7 @@ namespace WGU_App.Services
 
         }
 
-        public static async Task UpdateCourse(int id, string name, string title, string description, DateTime startDate, DateTime endDate, bool startNotification, int termId)
+        public static async Task UpdateCourse(int id, string name, string title, string description, DateTime startDate, DateTime endDate, bool startNotification, int termId, bool isPassed)
         {
             await Init();
 
@@ -169,6 +171,7 @@ namespace WGU_App.Services
                 courseQuery.EndDate = endDate;
                 courseQuery.StartNotification = startNotification;
                 courseQuery.TermId = termId;
+                courseQuery.IsPassed = isPassed;
 
                 await db.UpdateAsync(courseQuery);
             }
@@ -191,15 +194,16 @@ namespace WGU_App.Services
 
         }
 
-        public static async Task<IEnumerable<CourseInstructor>> GetCourseInstructors(int courseId)
+        public static async Task<IEnumerable<CourseInstructor>> GetCourseInstructor(int courseId)
         {
             await Init();
 
-            var instructors = await db.Table<CourseInstructor>()
+            var instructor = await db.Table<CourseInstructor>()
+
                 .Where(i=>i.CourseId == courseId)
                 .ToListAsync();
             
-            return instructors;
+            return instructor;
         }
 
         public static async Task<IEnumerable<CourseInstructor>> GetCourseInstructors()
@@ -263,11 +267,17 @@ namespace WGU_App.Services
             var course1 = new Course("C101", "English", "Prerequisite English", DateTime.Parse("2023-01-01"),DateTime.Parse("2023-05-01"), term.Id, true );
             await db.InsertAsync(course1);
 
+            var instructor1 = new CourseInstructor(course1.Id, "Joe Lopez", "Joe@joepez.com", "2035409326");
+            await db.InsertAsync(instructor1);
+
             var course2 = new Course("C347", "Public Speaking", "Develop and reinforce public speaking skills", DateTime.Parse("2023-01-01"), DateTime.Parse("2023-05-01"), term2.Id, true);
             await db.InsertAsync(course2);
 
             var course3 = new Course("C767", "Python 2", "Algorithms and data analysis", DateTime.Parse("2023-01-01"), DateTime.Parse("2023-05-01"), term3.Id, true);
             await db.InsertAsync(course3);
+
+            var course4 = new Course("Test123", "Test Course", "Testing the edit term page", DateTime.Parse("2023-04-01"), DateTime.Parse("2023-07-01"), term.Id, true);
+            await db.InsertAsync(course4);
         }
 
         public static async void ClearSampleData()

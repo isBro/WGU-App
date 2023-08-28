@@ -18,12 +18,14 @@ namespace WGU_App.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        //public Picker Status { get; set; }
+        public bool IsPassed { get; set; }
 
         public bool StartNotification;
         public int TermId { get; set; }
 
-        public Course(string name, string title, string description, DateTime startDate, DateTime endDate, int termId, bool startNotification)
+        //public CourseInstructor Instructor = null;
+
+        public Course(string name, string title, string description, DateTime startDate, DateTime endDate, int termId, bool startNotification = true, bool isPassed = false)
         {
             Name = name;
             Title = title;
@@ -32,6 +34,7 @@ namespace WGU_App.Models
             EndDate = endDate;
             TermId = termId;
             StartNotification = startNotification;
+            IsPassed = isPassed;
         }
 
         public Course() { }

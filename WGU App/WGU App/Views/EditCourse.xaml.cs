@@ -20,22 +20,38 @@ namespace WGU_App.Views
 		}
 
         private readonly int selectedTermId;
-        private readonly int instructorId;
+        private readonly CourseInstructor instructor;
         public EditCourse(Course selectedCourse)
 		{
 			InitializeComponent ();
 
-            CourseId.Text = $"{selectedCourse.Id}";
-            CourseName.Text = selectedCourse.Name ;
-            CourseTitle.Text = selectedCourse.Title ;
-            CourseDescription.Text = selectedCourse.Description ;
-            CourseStart.Date = selectedCourse.StartDate ;
-            CourseEnd.Date = selectedCourse.EndDate ;
-            Notification.IsToggled = selectedCourse.StartNotification;
-            selectedTermId = selectedCourse.TermId ;
+            try
+            {
 
-			
-		}
+                CourseId.Text = $"{selectedCourse.Id}";
+                CourseName.Text = selectedCourse.Name;
+                CourseTitle.Text = selectedCourse.Title;
+                CourseDescription.Text = selectedCourse.Description;
+                CourseStart.Date = selectedCourse.StartDate;
+                CourseEnd.Date = selectedCourse.EndDate;
+                Notification.IsToggled = selectedCourse.StartNotification;
+                selectedTermId = selectedCourse.TermId;
+                IsPassed.SelectedItem = selectedCourse.IsPassed.ToString();
+
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine (ex.ToString ());
+
+            }
+
+            
+
+
+        }
+
+
 
         private async void SaveCourse_Clicked(object sender, EventArgs e)
         {
@@ -57,11 +73,9 @@ namespace WGU_App.Views
                 return; 
             }
 
-            await DatabaseService.UpdateCourse(int.Parse(CourseId.Text), CourseName.Text, CourseTitle.Text, CourseDescription.Text, CourseStart.Date, CourseEnd.Date, Notification.IsToggled, selectedTermId);
+            await DatabaseService.UpdateCourse(int.Parse(CourseId.Text), CourseName.Text, CourseTitle.Text, CourseDescription.Text, CourseStart.Date, CourseEnd.Date, Notification.IsToggled, selectedTermId, bool.Parse(IsPassed.SelectedItem.ToString()));
 
             await Navigation.PopAsync();
-
-
 
         }
 
@@ -89,11 +103,6 @@ namespace WGU_App.Views
                
             }
 
-            
-
-            
-
-
         }
 
         private void ShareButton_Clicked(object sender, EventArgs e)
@@ -107,5 +116,11 @@ namespace WGU_App.Views
         {
 
         }
+
+        private void AssessmentCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
     }
 }

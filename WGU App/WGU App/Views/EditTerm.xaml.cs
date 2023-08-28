@@ -40,7 +40,9 @@ namespace WGU_App.Views
 
             int countCourses = await DatabaseService.GetCourseCountAsync(_selectedTermId);
             CountLabel.Text = countCourses.ToString();
-            CourseCollectionView.ItemsSource = await DatabaseService.GetCourses(_selectedTermId);
+            var courseList = await DatabaseService.GetCourses(_selectedTermId);
+            CourseCollectionView.ItemsSource = courseList;
+
         }
 
         private async void SaveTerm_Clicked(object sender, EventArgs e)
@@ -71,7 +73,7 @@ namespace WGU_App.Views
             var answer = await DisplayAlert("Delete term and related courses?", "Delete this term?", "Yes", "No");
             if (answer == true)
             {
-                await DatabaseService.RemoveTerm(_selectedTermId);
+                await DatabaseService.RemoveTerm(int.Parse(TermId.Text));
                 await DisplayAlert("Term Deleted", "Term Deleted", "Ok");
 
             }
@@ -87,7 +89,6 @@ namespace WGU_App.Views
         {
             var termId = _selectedTermId;
             await Navigation.PushAsync(new AddCourse(termId));
-            //await Navigation.PushAsync(new AddCourse());
         }
 
         private async void CourseCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -95,6 +96,7 @@ namespace WGU_App.Views
             var course = (Course)e.CurrentSelection.FirstOrDefault();
             if (e.CurrentSelection != null)
             {
+
                 await Navigation.PushAsync(new EditCourse(course));
                 Console.WriteLine(course.Title);
             }
