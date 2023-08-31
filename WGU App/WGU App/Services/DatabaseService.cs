@@ -117,13 +117,13 @@ namespace WGU_App.Services
                 Description = description,
                 StartDate = startDate,
                 EndDate = endDate,
-                StartNotification = startNotification,
-                IsPassed = isPassed
+                StartNotification = true,
+                IsPassed = false
                 
 
             };
 
-
+            Console.WriteLine($"{course.StartNotification}");
             await  db.InsertAsync(course);
             var id = course.Id;
         }
@@ -174,6 +174,8 @@ namespace WGU_App.Services
                 courseQuery.IsPassed = isPassed;
 
                 await db.UpdateAsync(courseQuery);
+
+                
             }
         }
 
@@ -264,19 +266,19 @@ namespace WGU_App.Services
             var term4 = new Term("summer Term", DateTime.Parse("2023-07-01"), DateTime.Parse("2023-09-01"));
             await db.InsertAsync(term4);
 
-            var course1 = new Course("C101", "English", "Prerequisite English", DateTime.Parse("2023-01-01"),DateTime.Parse("2023-05-01"), term.Id, true );
+            var course1 = new Course("C101", "English", "Prerequisite English", DateTime.Parse("2023-01-01"),DateTime.Parse("2023-05-01"), term.Id);
             await db.InsertAsync(course1);
 
             var instructor1 = new CourseInstructor(course1.Id, "Joe Lopez", "Joe@joepez.com", "2035409326");
             await db.InsertAsync(instructor1);
 
-            var course2 = new Course("C347", "Public Speaking", "Develop and reinforce public speaking skills", DateTime.Parse("2023-01-01"), DateTime.Parse("2023-05-01"), term2.Id, true);
+            var course2 = new Course("C347", "Public Speaking", "Develop and reinforce public speaking skills", DateTime.Parse("2023-01-01"), DateTime.Parse("2023-05-01"), term2.Id);
             await db.InsertAsync(course2);
 
-            var course3 = new Course("C767", "Python 2", "Algorithms and data analysis", DateTime.Parse("2023-01-01"), DateTime.Parse("2023-05-01"), term3.Id, true);
+            var course3 = new Course("C767", "Python 2", "Algorithms and data analysis", DateTime.Parse("2023-01-01"), DateTime.Parse("2023-05-01"), term3.Id);
             await db.InsertAsync(course3);
 
-            var course4 = new Course("Test123", "Test Course", "Testing the edit term page", DateTime.Parse("2023-04-01"), DateTime.Parse("2023-07-01"), term.Id, true);
+            var course4 = new Course("Test123", "Test Course", "Testing the edit term page", DateTime.Parse("2023-04-01"), DateTime.Parse("2023-07-01"), term.Id);
             await db.InsertAsync(course4);
         }
 

@@ -20,7 +20,7 @@ namespace WGU_App.Models
 
         public bool IsPassed { get; set; }
 
-        public bool StartNotification;
+        public bool StartNotification { get; set; }
         public int TermId { get; set; }
 
         //public CourseInstructor Instructor = null;

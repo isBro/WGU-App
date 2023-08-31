@@ -48,9 +48,6 @@ namespace WGU_App.Views
         private async void SaveTerm_Clicked(object sender, EventArgs e)
         {
 
-            decimal tossedDecimal;
-            int tossedInt;
-
             if (string.IsNullOrWhiteSpace(TermName.Text))
             {
                 await DisplayAlert("Missing Name", "Please enter a name.", "OK");
@@ -98,7 +95,7 @@ namespace WGU_App.Views
             {
 
                 await Navigation.PushAsync(new EditCourse(course));
-                Console.WriteLine(course.Title);
+                Console.WriteLine(course.StartNotification);
             }
         }
     }

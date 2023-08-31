@@ -20,7 +20,8 @@ namespace WGU_App.Views
 		}
 
         private readonly int selectedTermId;
-        private readonly CourseInstructor instructor;
+        // private readonly CourseInstructor instructor;
+
         public EditCourse(Course selectedCourse)
 		{
 			InitializeComponent ();
@@ -35,7 +36,10 @@ namespace WGU_App.Views
                 CourseStart.Date = selectedCourse.StartDate;
                 CourseEnd.Date = selectedCourse.EndDate;
                 Notification.IsToggled = selectedCourse.StartNotification;
+
+                Console.WriteLine($"The value of Notify is {Notification.IsToggled}!!!!");
                 selectedTermId = selectedCourse.TermId;
+
                 IsPassed.SelectedItem = selectedCourse.IsPassed.ToString();
 
             }
@@ -73,7 +77,7 @@ namespace WGU_App.Views
                 return; 
             }
 
-            await DatabaseService.UpdateCourse(int.Parse(CourseId.Text), CourseName.Text, CourseTitle.Text, CourseDescription.Text, CourseStart.Date, CourseEnd.Date, Notification.IsToggled, selectedTermId, bool.Parse(IsPassed.SelectedItem.ToString()));
+            await DatabaseService.UpdateCourse(int.Parse(CourseId.Text), CourseName.Text, CourseTitle.Text, CourseDescription.Text, CourseStart.Date, CourseEnd.Date, bool.Parse(Notification.IsToggled.ToString()), selectedTermId, bool.Parse(IsPassed.SelectedItem.ToString()));
 
             await Navigation.PopAsync();
 
