@@ -7,6 +7,8 @@ using SQLite;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using WGU_App.Services;
+using WGU_App.Models;
+using Plugin.LocalNotifications;
 
 namespace WGU_App.Views
 {
@@ -32,6 +34,26 @@ namespace WGU_App.Views
         private async void AppSettings_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new AppSettings());
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            var courseList = await DatabaseService.GetCourses();
+            var notifyRandom = new Random();
+            var notifyId = notifyRandom.Next(1000);
+
+            foreach (Course courseRecord in courseList)
+            {
+                if (courseRecord.StartNotification == true)
+                {
+                    if (courseRecord.StartDate == DateTime.Today)
+                    {
+                        CrossLocalNotifications.Current.Show("Notice", $"{courseRecord.Name}", notifyId);
+                    }
+                }
+            }
         }
     }
 }

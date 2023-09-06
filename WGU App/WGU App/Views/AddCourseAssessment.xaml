@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WGU_App.Views.AddCourseAssessment">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="SaveAssessment" Text="Save" Clicked="SaveAssessment_Clicked"></ToolbarItem>
+        <ToolbarItem x:Name="CancelAssessment" Text="Cancel" Clicked="CancelAssessment_Clicked"></ToolbarItem>
+        <ToolbarItem x:Name="Home" Text="Home" Clicked="Home_Clicked"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid ColumnSpacing="1" Padding="5" BackgroundColor="WhiteSmoke">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!--<Label Grid.Row="0" Grid.Column="0">Assessment Id</Label>
+                <Label Grid.Row="0" Grid.Column="1" x:Name="AssessmentId" VerticalTextAlignment="Center" FontAttributes="Bold" Text="{Binding Id}"></Label>-->
+
+                <Label Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" FontAttributes="Bold">Assessment Name</Label>
+                <Entry Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" FontAttributes="Bold" Placeholder="Enter a assessment name" x:Name="AssessmentName" Text="{Binding AssessmentName}"></Entry>
+
+                <Label Grid.Row="1" Grid.Column="0" VerticalTextAlignment="Center" FontAttributes="Bold">Assessment Description</Label>
+                <Entry Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center" FontAttributes="Bold" Placeholder="Enter a assessment description" x:Name="AssessmentDescription" Text="{Binding AssessmentDescription}"></Entry>
+
+                <Label Grid.Row="2" Grid.Column="0" Text="Assessment Type" FontSize="Medium"></Label>
+                <Picker Grid.Row="2" Grid.Column="1" x:Name="assessmentType" Title="{Binding AssessmentType}">
+
+                    <Picker.Items>
+                        <x:String>Performance</x:String>
+                        <x:String>Objective</x:String>
+
+                    </Picker.Items>
+
+                    </Picker>
+
+                <Label Grid.Row="3" Grid.Column="0">Course Id</Label>
+                <Entry Grid.Row="3" Grid.Column="1" x:Name="courseId" VerticalTextAlignment="Center" FontAttributes="Bold" Text="{Binding CourseId}"></Entry>
+
+            </Grid>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

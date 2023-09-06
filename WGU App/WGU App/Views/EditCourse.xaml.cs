@@ -19,8 +19,11 @@ namespace WGU_App.Views
 			InitializeComponent ();
 		}
 
+        private readonly int selectedCourseId;
         private readonly int selectedTermId;
-        // private readonly CourseInstructor instructor;
+
+        public CourseInstructor courseInstructor;
+        
 
         public EditCourse(Course selectedCourse)
 		{
@@ -36,11 +39,10 @@ namespace WGU_App.Views
                 CourseStart.Date = selectedCourse.StartDate;
                 CourseEnd.Date = selectedCourse.EndDate;
                 Notification.IsToggled = selectedCourse.StartNotification;
-
-                Console.WriteLine($"The value of Notify is {Notification.IsToggled}!!!!");
                 selectedTermId = selectedCourse.TermId;
+                IsPassed.Title = selectedCourse.IsPassed.ToString();
 
-                IsPassed.SelectedItem = selectedCourse.IsPassed.ToString();
+                selectedCourseId = selectedCourse.Id;
 
             }
 
@@ -50,12 +52,35 @@ namespace WGU_App.Views
 
             }
 
-            
-
 
         }
 
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
 
+            var instructor = await DatabaseService.GetCourseInstructor(selectedCourseId);
+
+
+
+            if (instructor.FirstOrDefault() != null)
+            {
+                InstructorsName.Text = $"{instructor.FirstOrDefault().InstructorName}";
+
+            }
+
+            else
+            {
+                InstructorsName.Text = "No instructor assigned";
+            }
+
+            var assessments = await DatabaseService.GetCourseAssessments(selectedCourseId);
+
+            AssessmentCollectionView.ItemsSource = assessments;
+                
+                
+
+        }
 
         private async void SaveCourse_Clicked(object sender, EventArgs e)
         {
@@ -77,7 +102,18 @@ namespace WGU_App.Views
                 return; 
             }
 
-            await DatabaseService.UpdateCourse(int.Parse(CourseId.Text), CourseName.Text, CourseTitle.Text, CourseDescription.Text, CourseStart.Date, CourseEnd.Date, bool.Parse(Notification.IsToggled.ToString()), selectedTermId, bool.Parse(IsPassed.SelectedItem.ToString()));
+            try
+            {
+                await DatabaseService.UpdateCourse(int.Parse(CourseId.Text), CourseName.Text, CourseTitle.Text, CourseDescription.Text, CourseStart.Date, CourseEnd.Date, Notification.IsToggled, selectedTermId, bool.Parse(IsPassed.SelectedItem.ToString()));
+
+            }
+
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"{ex.Message}", "OK");
+            }
+
+
 
             await Navigation.PopAsync();
 
@@ -112,8 +148,6 @@ namespace WGU_App.Views
         private void ShareButton_Clicked(object sender, EventArgs e)
         {
 
-           
-
         }
 
         private void ShareUrl_Clicked(object sender, EventArgs e)
@@ -121,10 +155,46 @@ namespace WGU_App.Views
 
         }
 
-        private void AssessmentCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void AssessmentCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var assessment = (CourseAssessment)e.CurrentSelection.FirstOrDefault();
+            if (e.CurrentSelection != null)
+            {
+                await Navigation.PushAsync(new EditCourseAssessment(assessment));
+            }
 
+            
         }
 
+        private async void addInstructor_Clicked(object sender, EventArgs e)
+        {
+            int instructorCount = await DatabaseService.GetInstructorCountAsync(selectedCourseId);
+
+            if (instructorCount > 0)
+            {
+
+                var instructors = await DatabaseService.GetCourseInstructor(selectedCourseId);
+                var instructor = instructors.FirstOrDefault();
+
+                if (instructor != null)
+                {
+                    await Navigation.PushAsync(new EditInstructor(instructor));
+                }
+                
+            }
+
+            else
+            {
+                await Navigation.PushAsync(new AddInstructor(selectedCourseId));
+
+            }
+
+            
+        }
+
+        private async void addAssessment_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AddCourseAssessment(selectedCourseId));
+        }
     }
 }

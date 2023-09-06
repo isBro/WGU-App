@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WGU_App.Views.EditCourseAssessment">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="SaveAssessment" Text="Save" Clicked="SaveAssessment_Clicked"/>
+        <ToolbarItem x:Name="CancelAssessment" Text="Cancel" Clicked="CancelAssessment_Clicked"/>
+        <ToolbarItem x:Name="DeleteAssessment" Text="Delete" Clicked="DeleteAssessment_Clicked"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid Padding="5" RowSpacing="1" ColumnSpacing="22" BackgroundColor="WhiteSmoke">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Assessment Name</Label>
+                <Entry Text ="{Binding AssessmentName}" x:Name="assessmentName" Grid.Row="0" Grid.Column="1" FontSize="Medium"/>
+
+                <Label Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Assessment Description</Label>
+                <Entry Text ="{Binding AssessmentDescription}" x:Name="assessmentDescription" Grid.Row="1" Grid.Column="1" FontSize="Medium"/>
+
+                <Label Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Assessment Type</Label>
+                <Picker Grid.Row="2" Grid.Column="1" x:Name="assessmentType" Title="{Binding AssessmentType}">
+
+                    <Picker.Items>
+                        <x:String>Performance</x:String>
+                        <x:String>Objective</x:String>
+
+                    </Picker.Items>
+
+                </Picker>
+                
+                <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Assessment Passed</Label>
+                <Picker Grid.Row="3" Grid.Column="1" x:Name="isPassed" Title="{Binding IsPassed}">
+
+                    <Picker.Items>
+                        <x:String>true</x:String>
+                        <x:String>false</x:String>
+
+                    </Picker.Items>
+
+                </Picker>
+            </Grid>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

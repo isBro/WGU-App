@@ -122,8 +122,6 @@ namespace WGU_App.Services
                 
 
             };
-
-            Console.WriteLine($"{course.StartNotification}");
             await  db.InsertAsync(course);
             var id = course.Id;
         }
@@ -204,6 +202,7 @@ namespace WGU_App.Services
 
                 .Where(i=>i.CourseId == courseId)
                 .ToListAsync();
+
             
             return instructor;
         }
@@ -224,7 +223,7 @@ namespace WGU_App.Services
             await db.DeleteAsync<CourseInstructor>(id);
         }
 
-        public static async Task UpdateCourseInstructor(int id, string name, string email, string phone)
+        public static async Task UpdateCourseInstructor(int id, string name, string email, string phone, int courseId)
         {
             await Init();
 
@@ -237,6 +236,7 @@ namespace WGU_App.Services
                 instructorQuery.InstructorName = name;
                 instructorQuery.InstructorEmail = email;
                 instructorQuery.InstructorPhone = phone;
+                instructorQuery.CourseId = courseId;
 
                 await db.UpdateAsync(instructorQuery);
 
@@ -246,6 +246,70 @@ namespace WGU_App.Services
         #endregion
 
         #region  CourseAssessment methods
+
+        public static async Task AddCourseAssessment(string name, string description, string type, int courseId, bool isPassed)
+        {
+            await Init();
+            var assessment = new CourseAssessment
+            {
+                CourseId = courseId,
+                AssessmentName = name,
+                AssessmentDescription = description,
+                AssessmentType = type,
+                IsPassed = isPassed
+
+            };
+
+            await db.InsertAsync(assessment);
+        }
+
+        public static async Task RemoveCourseAssessment(int id) 
+        { 
+            
+            await Init();
+
+            await db.DeleteAsync<CourseAssessment>(id);
+        
+        }
+
+        public static async Task<IEnumerable<CourseAssessment>> GetCourseAssessments()
+        {
+            await Init();
+            var courses = await db.Table<CourseAssessment>().ToListAsync();
+
+            return courses;
+        }
+
+        public static async Task<IEnumerable<CourseAssessment>> GetCourseAssessments(int courseId)
+        {
+            await Init();
+            var courses = await db.Table<CourseAssessment>()
+                .Where(i=>i.CourseId == courseId)
+                .ToListAsync();
+
+            return courses;
+        }
+
+        public static async Task UpdateCourseAssessment(int id, string name, string description, string type, int courseId, bool isPassed)
+        {
+            await Init();
+            var assessmentQuery = await db.Table<CourseAssessment>()
+                .Where(i=>i.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (assessmentQuery != null)
+            {
+                assessmentQuery.CourseId = courseId;
+                assessmentQuery.AssessmentName = name;
+                assessmentQuery.AssessmentDescription = description;
+                assessmentQuery.AssessmentType = type;
+                assessmentQuery.IsPassed = isPassed;
+            }
+
+            await db.UpdateAsync(assessmentQuery);
+        }
+            
+
         #endregion
 
         #region Demo methods
@@ -269,9 +333,6 @@ namespace WGU_App.Services
             var course1 = new Course("C101", "English", "Prerequisite English", DateTime.Parse("2023-01-01"),DateTime.Parse("2023-05-01"), term.Id);
             await db.InsertAsync(course1);
 
-            var instructor1 = new CourseInstructor(course1.Id, "Joe Lopez", "Joe@joepez.com", "2035409326");
-            await db.InsertAsync(instructor1);
-
             var course2 = new Course("C347", "Public Speaking", "Develop and reinforce public speaking skills", DateTime.Parse("2023-01-01"), DateTime.Parse("2023-05-01"), term2.Id);
             await db.InsertAsync(course2);
 
@@ -280,6 +341,12 @@ namespace WGU_App.Services
 
             var course4 = new Course("Test123", "Test Course", "Testing the edit term page", DateTime.Parse("2023-04-01"), DateTime.Parse("2023-07-01"), term.Id);
             await db.InsertAsync(course4);
+
+            var instructor1 = new CourseInstructor(course1.Id, "Joe Lopez", "Joe@joepez.com", "2035409326");
+            await db.InsertAsync(instructor1);
+
+            var assessment = new CourseAssessment("Final Test", "final test for testing","Objective",false, course1.Id);
+            await db.InsertAsync(assessment);
         }
 
         public static async void ClearSampleData()
@@ -306,6 +373,14 @@ namespace WGU_App.Services
             int courseCount = await db.ExecuteScalarAsync<int>($" SELECT COUNT(*) FROM Course WHERE TermId = ?", selectedTermId);
             return courseCount;
         }
+
+        public static async Task<int> GetInstructorCountAsync(int selectedCourseId)
+        {
+            int instructorCount = await db.ExecuteScalarAsync<int>($"SELECT COUNT(*) FROM CourseInstructor WHERE CourseId = ?", selectedCourseId);
+            return instructorCount;
+        }
+
+        
 
         #endregion
 

@@ -11,21 +11,23 @@ namespace WGU_App.Models
         public int Id { get; set; }
         public string AssessmentName { get; set; }
         public string AssessmentDescription { get; set;}
+        public string AssessmentType { get; set;}
 
-        public bool IsPerformanceAssessment { get; set;}
+        public bool IsPassed { get; set;}
 
-        public bool IsPassed { get; set;} = false;
+        public int CourseId { get; set;}
 
 
         public CourseAssessment() { }
 
-        public CourseAssessment(int id, string assessmentName, string assessmentDescription, bool isPerformanceAssessment, bool isPassed)
+        public CourseAssessment(string assessmentName, string assessmentDescription, string assessmentType = "Performance", bool isPassed = false, int courseId = 0)
         {
-            Id = id;
+
             AssessmentName = assessmentName;
             AssessmentDescription = assessmentDescription;
-            IsPerformanceAssessment = isPerformanceAssessment;
+            AssessmentType = assessmentType;
             IsPassed = isPassed;
+            CourseId = courseId;
         }
     }
 }

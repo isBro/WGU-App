@@ -95,7 +95,7 @@ namespace WGU_App.Views
             {
 
                 await Navigation.PushAsync(new EditCourse(course));
-                Console.WriteLine(course.StartNotification);
+               
             }
         }
     }

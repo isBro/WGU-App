@@ -23,8 +23,6 @@ namespace WGU_App.Models
         public bool StartNotification { get; set; }
         public int TermId { get; set; }
 
-        //public CourseInstructor Instructor = null;
-
         public Course(string name, string title, string description, DateTime startDate, DateTime endDate, int termId, bool startNotification = true, bool isPassed = false)
         {
             Name = name;
