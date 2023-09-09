@@ -51,9 +51,15 @@ namespace WGU_App.Views
 				return;
             }
 
-			
+            if (CourseEnd.Date < CourseStart.Date)
+            {
+                await DisplayAlert("End date is wrong", $"End date for this course cannot be be before {CourseStart.Date}", "OK");
+                return;
+            }
 
-			await DatabaseService.AddCourse(_selectedTermId, CourseName.Text, CourseTitle.Text, CourseDescription.Text, CourseStart.Date, CourseEnd.Date, Notification.IsToggled, false);
+
+
+            await DatabaseService.AddCourse(_selectedTermId, CourseName.Text, CourseTitle.Text, CourseDescription.Text, CourseStart.Date, CourseEnd.Date, Notification.IsToggled, false);
 			await Navigation.PopAsync();
 
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using WGU_App.Services;
 using WGU_App.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,6 +12,12 @@ namespace WGU_App
         public App()
         {
             InitializeComponent();
+
+            if (Settings.FirstRun)
+            {
+                DatabaseService.LoadSampleData();
+                Settings.FirstRun = false;
+            }
 
             var dashboard = new Dashboard();
 

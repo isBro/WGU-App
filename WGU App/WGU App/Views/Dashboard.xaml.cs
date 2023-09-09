@@ -20,6 +20,8 @@ namespace WGU_App.Views
             InitializeComponent();
         }
 
+        public string Alert = "No notifications";
+
         private async void AddTerm_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new AddTerm());
@@ -41,6 +43,7 @@ namespace WGU_App.Views
             base.OnAppearing();
 
             var courseList = await DatabaseService.GetCourses();
+            var courseAssessmentList = await DatabaseService.GetCourseAssessments();
             var notifyRandom = new Random();
             var notifyId = notifyRandom.Next(1000);
 
@@ -50,7 +53,33 @@ namespace WGU_App.Views
                 {
                     if (courseRecord.StartDate == DateTime.Today)
                     {
-                        CrossLocalNotifications.Current.Show("Notice", $"{courseRecord.Name}", notifyId);
+                        
+                        Alert = $"Alert {notifyId}:   {courseRecord.Name}-{courseRecord.Title} begins today!";
+
+                        await DisplayAlert("", Alert, "OK");
+
+                        //alert.Text = Alert;
+
+                        //CrossLocalNotifications.Current.Show("Notice", $"{courseRecord.Name} begins today!", notifyId);
+                        
+                    }
+                }
+
+                else
+                {
+                    alert.Text = "     No notifications";
+                }
+            }
+
+            foreach (CourseAssessment courseAssessment in courseAssessmentList)
+            {
+                if (courseAssessment.AssessmentNotification)
+                {
+                    if (courseAssessment.DueDate == DateTime.Today)
+                    {
+                        Alert = $"Alert {notifyId}:   {courseAssessment.AssessmentName} is due today.";
+
+                        await DisplayAlert("", Alert, "OK");
                     }
                 }
             }

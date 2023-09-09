@@ -19,20 +19,23 @@ namespace WGU_App.Views
 			InitializeComponent ();
 		}
 
-        private void LoadSampleData_Clicked(object sender, EventArgs e)
+        private async void LoadSampleData_Clicked(object sender, EventArgs e)
         {
-            //if (Sett)
-            //{
-            //    DatabaseService.LoadSampleData();
-            //}
+            if (Settings.FirstRun)
+            {
+                DatabaseService.LoadSampleData();
+                Settings.FirstRun = false;
+                await Navigation.PopToRootAsync();
+            }
 
-            DatabaseService.LoadSampleData();
+            
 
         }
 
         private void ClearSampleData_Clicked(object sender, EventArgs e)
         {
             DatabaseService.ClearSampleData();
+            Settings.FirstRun = true;
         }
 
         private void ClearPreferences_Clicked(object sender, EventArgs e)

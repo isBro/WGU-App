@@ -20,6 +20,8 @@ namespace WGU_App.Views
         }
 
         private readonly int selectedCourseId;
+        private readonly string _PerfType = "Performance";
+        private readonly string _ObjType = "Objective";
         public AddCourseAssessment(int courseId)
         {
             InitializeComponent();
@@ -28,11 +30,30 @@ namespace WGU_App.Views
 
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 
             courseId.Text = selectedCourseId.ToString();
+
+            var Objcount = await DatabaseService.ObjAssessmentCountAsync(selectedCourseId);
+            var PerfCount = await DatabaseService.PerfAssessmentCountAsync(selectedCourseId);
+
+            if (Objcount > 0)
+            {
+
+                assessmentType.Title = _PerfType;
+                assessmentType.SelectedItem = _PerfType;
+                assessmentType.IsEnabled = false;
+            }
+
+            else if (PerfCount > 0)
+            {
+                assessmentType.Title = _ObjType;
+                assessmentType.SelectedItem = _ObjType;
+                assessmentType.IsEnabled = false;
+
+            }
         }
 
         private async void SaveAssessment_Clicked(object sender, EventArgs e)
@@ -58,7 +79,7 @@ namespace WGU_App.Views
 
             // ADD COURSE ASSESSMENT TO DB
 
-            await DatabaseService.AddCourseAssessment(AssessmentName.Text, AssessmentDescription.Text, assessmentType.SelectedItem.ToString(), int.Parse(courseId.Text), false);
+            await DatabaseService.AddCourseAssessment(AssessmentName.Text, AssessmentDescription.Text, AssessmentDueDate.Date, assessmentType.SelectedItem.ToString(), int.Parse(courseId.Text), false);
             await Navigation.PopAsync();
         }
 

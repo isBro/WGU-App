@@ -48,20 +48,14 @@
                 <Label Grid.Row="5" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course End</Label>
                 <DatePicker Grid.Row="5" Grid.Column="1" x:Name="CourseEnd"></DatePicker>
 
-                <Label Grid.Row="6" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Share</Label>
-                <Button Grid.Row="6" Grid.Column="1" FontSize="Medium" VerticalOptions="Center" Text="Share" Font="Medium" x:Name="ShareButton" Clicked="ShareButton_Clicked"></Button>
+                <Label Grid.Row="6" Grid.Column="0" Text="Notify" FontSize="Medium" FontAttributes="Bold"></Label>
+                <Switch Grid.Row="6" Grid.Column="1" x:Name="Notification" IsToggled="{Binding StartNotification}"></Switch>
 
-                <Label Grid.Row="7" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Share</Label>
-                <Button Grid.Row="7" Grid.Column="1" FontSize="Medium" VerticalOptions="Center" Text="Share URL" Font="Medium" x:Name="ShareUrl" Clicked="ShareUrl_Clicked"></Button>
+                <Label Grid.Row="7" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Instructor</Label>
+                <Label Grid.Row="7" Grid.Column="1" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" x:Name="InstructorsName" Text="{Binding InstructorName}"/>
 
-                <Label Grid.Row="8" Grid.Column="0" Text="Notify" FontSize="Medium" FontAttributes="Bold"></Label>
-                <Switch Grid.Row="8" Grid.Column="1" x:Name="Notification" IsToggled="{Binding StartNotification}"></Switch>
-
-                <Label Grid.Row="9" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Instructor</Label>
-                <Label Grid.Row="9" Grid.Column="1" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" x:Name="InstructorsName" Text="{Binding InstructorName}"/>
-
-                <Label Grid.Row="10" Grid.Column="0" Text="Is Passed" FontSize="Medium" FontAttributes="Bold"></Label>
-                <Picker Grid.Row="10" Grid.Column="1" x:Name="IsPassed" Title="{Binding IsPassed}">
+                <Label Grid.Row="8" Grid.Column="0" Text="Is Passed" FontSize="Medium" FontAttributes="Bold"></Label>
+                <Picker Grid.Row="8" Grid.Column="1" x:Name="IsPassed" Title="{Binding IsPassed}">
 
                     <Picker.Items>
                         <x:String>true</x:String>
@@ -70,6 +64,12 @@
                     </Picker.Items>
 
                 </Picker>
+
+                <Label Grid.Row="9" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"></Label>
+                <Button Grid.Row="9" Grid.Column="1" FontSize="Medium" VerticalOptions="Center" Text="Share" Font="Medium" x:Name="ShareButton" Clicked="ShareButton_Clicked"></Button>
+
+                <Label Grid.Row="10" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"></Label>
+                <Button Grid.Row="10" Grid.Column="1" FontSize="Medium" VerticalOptions="Center" Text="Share URL" Font="Medium" x:Name="ShareUrl" Clicked="ShareUri_Clicked"></Button>
 
             </Grid>
 
@@ -121,9 +121,18 @@
                                 <Label Text="{Binding AssessmentType}" 
                                    Grid.Row="2" Grid.Column="1" FontFamily="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"/>
 
-                                <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Assessment Status</Label>
+                                <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Assessment Due Date</Label>
+                                <Label Grid.Row="3" Grid.Column="1" x:Name="AssessmentDueDate" Text="{Binding DueDate}" FontFamily="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"></Label>
+
+                                <Label Grid.Row="4" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Assessment Passed</Label>
                                 <Label Text="{Binding IsPassed}" 
-                                       Grid.Row="3" Grid.Column="1" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                                       Grid.Row="4" Grid.Column="1" FontFamily="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       />
 
                             </Grid>
                         </StackLayout>

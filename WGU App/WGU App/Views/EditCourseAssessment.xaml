@@ -15,6 +15,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -38,9 +40,12 @@
                     </Picker.Items>
 
                 </Picker>
-                
-                <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center">Assessment Passed</Label>
-                <Picker Grid.Row="3" Grid.Column="1" x:Name="isPassed" Title="{Binding IsPassed}">
+
+                <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Assessment Due Date</Label>
+                <DatePicker Grid.Row="3" Grid.Column="1" x:Name="AssessmentDueDate"></DatePicker>
+
+                <Label Grid.Row="4" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Assessment Passed</Label>
+                <Picker Grid.Row="4" Grid.Column="1" x:Name="isPassed" Title="{Binding IsPassed}">
 
                     <Picker.Items>
                         <x:String>true</x:String>
@@ -49,6 +54,9 @@
                     </Picker.Items>
 
                 </Picker>
+
+                <Label Grid.Row="5" Grid.Column="0" Text="Notify" FontSize="Medium" FontAttributes="Bold"></Label>
+                <Switch Grid.Row="5" Grid.Column="1" x:Name="Notification" IsToggled="{Binding AssessmentNotification}"></Switch>
             </Grid>
             
         </StackLayout>

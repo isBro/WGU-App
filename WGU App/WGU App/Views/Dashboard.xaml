@@ -11,11 +11,9 @@
     <ContentPage.Content>
 
         <StackLayout>
-            <Label Text="Welcome to WGU!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" 
-                   FontSize="Medium"
-                   FontAttributes="Bold"/>
+
+            <Label x:Name="alert" Text="{Binding Alert}" TextColor="Red"/>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

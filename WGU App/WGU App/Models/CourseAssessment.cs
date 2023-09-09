@@ -15,19 +15,26 @@ namespace WGU_App.Models
 
         public bool IsPassed { get; set;}
 
+        public bool AssessmentNotification { get; set;}
+
+
+        public DateTime DueDate { get; set;}
+
         public int CourseId { get; set;}
 
 
         public CourseAssessment() { }
 
-        public CourseAssessment(string assessmentName, string assessmentDescription, string assessmentType = "Performance", bool isPassed = false, int courseId = 0)
+        public CourseAssessment(string assessmentName, string assessmentDescription, DateTime dueDate, string assessmentType = "Performance",  bool isPassed = false, int courseId = 0)
         {
 
             AssessmentName = assessmentName;
             AssessmentDescription = assessmentDescription;
             AssessmentType = assessmentType;
+            DueDate = dueDate;
             IsPassed = isPassed;
             CourseId = courseId;
+            AssessmentNotification = true;
         }
     }
 }

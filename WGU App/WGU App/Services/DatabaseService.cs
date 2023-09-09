@@ -247,7 +247,8 @@ namespace WGU_App.Services
 
         #region  CourseAssessment methods
 
-        public static async Task AddCourseAssessment(string name, string description, string type, int courseId, bool isPassed)
+
+        public static async Task AddCourseAssessment(string name, string description, DateTime dueDate, string type, int courseId, bool isPassed)
         {
             await Init();
             var assessment = new CourseAssessment
@@ -255,8 +256,10 @@ namespace WGU_App.Services
                 CourseId = courseId,
                 AssessmentName = name,
                 AssessmentDescription = description,
+                AssessmentNotification = true,
                 AssessmentType = type,
-                IsPassed = isPassed
+                IsPassed = isPassed,
+                DueDate = dueDate
 
             };
 
@@ -290,7 +293,7 @@ namespace WGU_App.Services
             return courses;
         }
 
-        public static async Task UpdateCourseAssessment(int id, string name, string description, string type, int courseId, bool isPassed)
+        public static async Task UpdateCourseAssessment(int id, string name, string description, DateTime dueDate, string type, int courseId, bool assessmentNotificatiopn, bool isPassed)
         {
             await Init();
             var assessmentQuery = await db.Table<CourseAssessment>()
@@ -302,6 +305,8 @@ namespace WGU_App.Services
                 assessmentQuery.CourseId = courseId;
                 assessmentQuery.AssessmentName = name;
                 assessmentQuery.AssessmentDescription = description;
+                assessmentQuery.DueDate = dueDate;
+                assessmentQuery.AssessmentNotification = assessmentNotificatiopn;
                 assessmentQuery.AssessmentType = type;
                 assessmentQuery.IsPassed = isPassed;
             }
@@ -330,23 +335,34 @@ namespace WGU_App.Services
             var term4 = new Term("summer Term", DateTime.Parse("2023-07-01"), DateTime.Parse("2023-09-01"));
             await db.InsertAsync(term4);
 
-            var course1 = new Course("C101", "English", "Prerequisite English", DateTime.Parse("2023-01-01"),DateTime.Parse("2023-05-01"), term.Id);
+            var course1 = new Course("C101", "English", "Prerequisite English", DateTime.Parse("2023-01-09"), DateTime.Parse("2023-11-01"), term.Id);
             await db.InsertAsync(course1);
 
-            var course2 = new Course("C347", "Public Speaking", "Develop and reinforce public speaking skills", DateTime.Parse("2023-01-01"), DateTime.Parse("2023-05-01"), term2.Id);
+            var assessment = new CourseAssessment("Final Test", "final test for testing", DateTime.Parse("2023-01-01"), "Objective", false, course1.Id);
+            await db.InsertAsync(assessment);
+
+            var assessment2 = new CourseAssessment("Final Test2", "final test for testing 2", DateTime.Parse("2023-11-01"), "Performance", false, course1.Id);
+            await db.InsertAsync(assessment);
+
+            var course2 = new Course("C347", "Public Speaking", "Develop and reinforce public speaking skills", DateTime.Parse("2023-01-09"), DateTime.Parse("2023-11-01"), term.Id);
             await db.InsertAsync(course2);
 
-            var course3 = new Course("C767", "Python 2", "Algorithms and data analysis", DateTime.Parse("2023-01-01"), DateTime.Parse("2023-05-01"), term3.Id);
+            var course3 = new Course("C767", "Python 2", "Algorithms and data analysis", DateTime.Parse("2023-01-09"), DateTime.Parse("2023-11-01"), term.Id);
             await db.InsertAsync(course3);
 
-            var course4 = new Course("Test123", "Test Course", "Testing the edit term page", DateTime.Parse("2023-04-01"), DateTime.Parse("2023-07-01"), term.Id);
+            var course4 = new Course("C999", "Spanish", "Advanced Spanish", DateTime.Parse("2023-01-09"), DateTime.Parse("2023-11-01"), term.Id);
             await db.InsertAsync(course4);
+
+            var course5 = new Course("C128", "Advanced Programming","C# and VS IDE", DateTime.Parse("2023-01-09"), DateTime.Parse("2023-11-01"), term.Id);
+            await db.InsertAsync(course5);
+
+            var course6 = new Course("C545", "Nursing 101", "Nursing fundamentals", DateTime.Parse("2023-01-09"), DateTime.Parse("2023-11-01"), term.Id);
+            await db.InsertAsync(course6);
 
             var instructor1 = new CourseInstructor(course1.Id, "Joe Lopez", "Joe@joepez.com", "2035409326");
             await db.InsertAsync(instructor1);
 
-            var assessment = new CourseAssessment("Final Test", "final test for testing","Objective",false, course1.Id);
-            await db.InsertAsync(assessment);
+            
         }
 
         public static async void ClearSampleData()
@@ -355,6 +371,8 @@ namespace WGU_App.Services
 
             await db.DropTableAsync<Course>();
             await db.DropTableAsync<Term>();
+            await db.DropTableAsync<CourseInstructor>();
+            await db.DropTableAsync<CourseAssessment>();
 
             db = null;
             
@@ -380,7 +398,29 @@ namespace WGU_App.Services
             return instructorCount;
         }
 
-        
+        public static async Task<int> GetAssessmentCountAsync(int selectedCourseId)
+        {
+            int assessmentCount = await db.ExecuteScalarAsync<int>($"SELECT COUNT(*) FROM CourseAssessment WHERE CourseId = ?",selectedCourseId);
+            return assessmentCount;
+        }
+
+        public static async Task<int> ObjAssessmentCountAsync(int selectedCourseId)
+        {
+            int assessmentCount = await db.ExecuteScalarAsync<int>($"SELECT COUNT(*) FROM CourseAssessment WHERE CourseId = ? AND AssessmentType = ?", selectedCourseId, "Objective");
+
+
+
+            return assessmentCount;
+        }
+
+        public static async Task<int> PerfAssessmentCountAsync(int selectedCourseId)
+        {
+            int assessmentCount = await db.ExecuteScalarAsync<int>($"SELECT COUNT(*) FROM CourseAssessment WHERE CourseId = ? AND AssessmentType = ?", selectedCourseId, "Performance");
+
+
+
+            return assessmentCount;
+        }
 
         #endregion
 

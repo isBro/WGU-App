@@ -27,6 +27,8 @@ namespace WGU_App.Views
 
             assessmentName.Text = assessment.AssessmentName;
             assessmentDescription.Text = assessment.AssessmentDescription;
+            AssessmentDueDate.Date = assessment.DueDate;
+            Notification.IsToggled = assessment.AssessmentNotification;
             assessmentType.SelectedItem = assessment.AssessmentType;
             //assessmentType.Title = assessment.AssessmentType;
             isPassed.SelectedItem = assessment.IsPassed.ToString();
@@ -52,7 +54,7 @@ namespace WGU_App.Views
                 return;
             }
 
-            await DatabaseService.UpdateCourseAssessment(selectedAssessmentId, assessmentName.Text, assessmentDescription.Text, assessmentType.SelectedItem.ToString(), selectedCourseId, bool.Parse(isPassed.SelectedItem.ToString()));
+            await DatabaseService.UpdateCourseAssessment(selectedAssessmentId, assessmentName.Text, assessmentDescription.Text, AssessmentDueDate.Date, assessmentType.SelectedItem.ToString(), selectedCourseId, Notification.IsToggled, bool.Parse(isPassed.SelectedItem.ToString()));
             await Navigation.PopAsync();
         }
 
@@ -63,7 +65,7 @@ namespace WGU_App.Views
 
         private async void DeleteAssessment_Clicked(object sender, EventArgs e)
         {
-            var answer = await DisplayAlert("Assessment description missing", "Please enter a description", "Yes", "No");
+            var answer = await DisplayAlert("Are you sure?", "Are you sure you want to delete?", "Yes", "No");
             
             if (answer)
             {

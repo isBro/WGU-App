@@ -18,9 +18,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-
-                <!--<Label Grid.Row="0" Grid.Column="0">Assessment Id</Label>
-                <Label Grid.Row="0" Grid.Column="1" x:Name="AssessmentId" VerticalTextAlignment="Center" FontAttributes="Bold" Text="{Binding Id}"></Label>-->
+                
 
                 <Label Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" FontAttributes="Bold">Assessment Name</Label>
                 <Entry Grid.Row="0" Grid.Column="1" VerticalTextAlignment="Center" FontAttributes="Bold" Placeholder="Enter a assessment name" x:Name="AssessmentName" Text="{Binding AssessmentName}"></Entry>
@@ -39,8 +37,14 @@
 
                     </Picker>
 
-                <Label Grid.Row="3" Grid.Column="0">Course Id</Label>
-                <Entry Grid.Row="3" Grid.Column="1" x:Name="courseId" VerticalTextAlignment="Center" FontAttributes="Bold" Text="{Binding CourseId}"></Entry>
+                <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Assessment Due Date</Label>
+                <DatePicker Grid.Row="3" Grid.Column="1" x:Name="AssessmentDueDate"></DatePicker>
+
+                <Label Grid.Row="4" Grid.Column="0">Course Id</Label>
+                <Entry Grid.Row="4" Grid.Column="1" x:Name="courseId" VerticalTextAlignment="Center" FontAttributes="Bold" Text="{Binding CourseId}"></Entry>
+
+                <Label Grid.Row="5" Grid.Column="0" Text="Notify" FontSize="Medium" FontAttributes="Bold"></Label>
+                <Switch Grid.Row="5" Grid.Column="1" x:Name="Notification" IsToggled="{Binding AssessmentNotification}"></Switch>
 
             </Grid>
 
