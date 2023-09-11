@@ -359,7 +359,7 @@ namespace WGU_App.Services
             var course6 = new Course("C545", "Nursing 101", "Nursing fundamentals", DateTime.Parse("2023-01-09"), DateTime.Parse("2023-11-01"), term.Id);
             await db.InsertAsync(course6);
 
-            var instructor1 = new CourseInstructor(course1.Id, "Joe Lopez", "Joe@joepez.com", "2035409326");
+            var instructor1 = new CourseInstructor(course1.Id, "Joe Lopez", "Jlop495@wgu.edu", "2035409326");
             await db.InsertAsync(instructor1);
 
             
