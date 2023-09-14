@@ -23,7 +23,9 @@ namespace WGU_App.Models
         public bool StartNotification { get; set; }
         public int TermId { get; set; }
 
-        public Course(string name, string title, string description, DateTime startDate, DateTime endDate, int termId, bool startNotification = true, bool isPassed = false)
+        public string CourseNotes { get; set; }
+
+        public Course(string name, string title, string description, DateTime startDate, DateTime endDate, int termId, string courseNotes, bool startNotification = true, bool isPassed = false)
         {
             Name = name;
             Title = title;
@@ -31,8 +33,10 @@ namespace WGU_App.Models
             StartDate = startDate;
             EndDate = endDate;
             TermId = termId;
+            CourseNotes = courseNotes;
             StartNotification = startNotification;
             IsPassed = isPassed;
+
         }
 
         public Course() { }

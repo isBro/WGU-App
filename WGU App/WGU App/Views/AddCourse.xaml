@@ -40,8 +40,11 @@
                 <Label Grid.Row="6" Grid.Column="0" Text="Notify" FontSize="Medium"></Label>
                 <Switch Grid.Row="6" Grid.Column="1" x:Name="Notification" IsToggled="True"></Switch>
 
-                <!--<Label Grid.Row="7" Grid.Column="0" Text="Is Passed" FontSize="Medium"></Label>
-                <Picker Grid.Row="7" Grid.Column="1" x:Name="IsPassed" Title="{Binding IsPassed}">
+                <Label Grid.Row="7" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Notes</Label>
+                <Entry Grid.Row="7" Grid.Column="1" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" x:Name="CourseNotes" Text="{Binding CourseNotes}"/>
+
+                <Label Grid.Row="8" Grid.Column="0" Text="Is Passed" FontSize="Medium"></Label>
+                <Picker Grid.Row="8" Grid.Column="1" x:Name="IsPassed" Title="{Binding IsPassed}">
 
                     <Picker.Items>
                         <x:String>true</x:String>
@@ -49,7 +52,7 @@
 
                     </Picker.Items>
 
-                    </Picker>-->
+                    </Picker>
 
             </Grid>
             

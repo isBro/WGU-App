@@ -71,7 +71,7 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
-                                    <!--<RowDefinition Height="Auto"/>-->
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 
                                 <Grid.ColumnDefinitions>
@@ -97,8 +97,8 @@
                                 <Label Grid.Row="4" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course End</Label>
                                 <Label Grid.Row="4" Grid.Column="1" x:Name="CourseEnd" Text="{Binding EndDate}"></Label>
 
-                                <!--<Label Grid.Row="5" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course Passed</Label>
-                                <Label Text="{Binding TermId}" Grid.Row="5" Grid.Column="1" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"></Label>-->
+                                <Label Grid.Row="5" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Course Passed</Label>
+                                <Label Text="{Binding IsPassed}" Grid.Row="5" Grid.Column="1" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"></Label>
 
                             </Grid>
                         </StackLayout>

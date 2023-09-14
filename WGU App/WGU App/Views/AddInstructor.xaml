@@ -35,7 +35,7 @@
                                    Grid.Row="2" Grid.Column="1" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"/>
 
                 <Label Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" >Instructor Phone</Label>
-                <Entry x:Name="instructorPhone" Text="{Binding InstructorPhone}" Keyboard="Numeric" MaxLength="10" Placeholder="Enter phone number"
+                <Entry x:Name="instructorPhone" Text="{Binding InstructorPhone}" Keyboard="Numeric"  MaxLength="10" Placeholder="Enter phone number"
                                    Grid.Row="3" Grid.Column="1" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"/>
 
                 

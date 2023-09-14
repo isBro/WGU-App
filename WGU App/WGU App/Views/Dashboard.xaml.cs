@@ -44,6 +44,7 @@ namespace WGU_App.Views
 
             var courseList = await DatabaseService.GetCourses();
             var courseAssessmentList = await DatabaseService.GetCourseAssessments();
+
             var notifyRandom = new Random();
             var notifyId = notifyRandom.Next(1000);
 
@@ -53,15 +54,33 @@ namespace WGU_App.Views
                 {
                     if (courseRecord.StartDate == DateTime.Today)
                     {
+
+              
+                        try
+                        {
+                            CrossLocalNotifications.Current.Show("Notice", $"{courseRecord.Name} begins today!", notifyId);
+                        }
+                        catch(Exception ex) { 
+
+                           await DisplayAlert("", "EXCEPTION CAUGHT: " + ex.Message, "OK");
                         
-                        Alert = $"Alert {notifyId}:   {courseRecord.Name}-{courseRecord.Title} begins today!";
+                        }
 
-                        await DisplayAlert("", Alert, "OK");
 
-                        //alert.Text = Alert;
+                    }
 
-                        //CrossLocalNotifications.Current.Show("Notice", $"{courseRecord.Name} begins today!", notifyId);
-                        
+                    else if (courseRecord.EndDate == DateTime.Today)
+                    {
+                        try
+                        {
+                            CrossLocalNotifications.Current.Show("Notice", $"{courseRecord.Name} ends today!", notifyId);
+                        }
+                        catch (Exception ex)
+                        {
+
+                            await DisplayAlert("", "EXCEPTION CAUGHT: " + ex.Message, "OK");
+
+                        }
                     }
                 }
 
@@ -77,9 +96,16 @@ namespace WGU_App.Views
                 {
                     if (courseAssessment.DueDate == DateTime.Today)
                     {
-                        Alert = $"Alert {notifyId}:   {courseAssessment.AssessmentName} is due today.";
+                        try
+                        {
+                            CrossLocalNotifications.Current.Show("Notice", $"{courseAssessment.AssessmentName} is due today!", notifyId);
+                        }
+                        catch (Exception ex)
+                        {
 
-                        await DisplayAlert("", Alert, "OK");
+                            await DisplayAlert("", "EXCEPTION CAUGHT: " + ex.Message, "OK");
+
+                        }
                     }
                 }
             }

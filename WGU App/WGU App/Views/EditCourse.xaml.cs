@@ -39,6 +39,7 @@ namespace WGU_App.Views
                 CourseDescription.Text = selectedCourse.Description;
                 CourseStart.Date = selectedCourse.StartDate;
                 CourseEnd.Date = selectedCourse.EndDate;
+                CourseNotes.Text = selectedCourse.CourseNotes;
                 Notification.IsToggled = selectedCourse.StartNotification;
                 selectedTermId = selectedCourse.TermId;
                 IsPassed.Title = selectedCourse.IsPassed.ToString();
@@ -112,7 +113,7 @@ namespace WGU_App.Views
 
             try
             {
-                await DatabaseService.UpdateCourse(selectedCourseId, CourseName.Text, CourseTitle.Text, CourseDescription.Text, CourseStart.Date, CourseEnd.Date, Notification.IsToggled, selectedTermId, bool.Parse(IsPassed.Title.ToString()));
+                await DatabaseService.UpdateCourse(selectedCourseId, CourseName.Text, CourseTitle.Text, CourseDescription.Text, CourseStart.Date, CourseEnd.Date, CourseNotes.Text, Notification.IsToggled, selectedTermId, bool.Parse(IsPassed.Title.ToString()));
 
             }
 
@@ -155,7 +156,7 @@ namespace WGU_App.Views
 
         private async void ShareButton_Clicked(object sender, EventArgs e)
         {
-            var text = CourseName.Text + " /" + CourseDescription.Text;
+            var text = CourseName.Text + " Notes:" + CourseNotes.Text;
             await Share.RequestAsync(new ShareTextRequest
             {
                 Text = text,

@@ -28,7 +28,14 @@ namespace WGU_App.Views
 
 		}
 
-		private readonly int _selectedTermId;
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+			IsPassed.SelectedItem = false.ToString();
+			IsPassed.Title = false.ToString();
+        }
+
+        private readonly int _selectedTermId;
 
         private async void SaveCourse_Clicked(object sender, EventArgs e)
         {
@@ -59,7 +66,7 @@ namespace WGU_App.Views
 
 
 
-            await DatabaseService.AddCourse(_selectedTermId, CourseName.Text, CourseTitle.Text, CourseDescription.Text, CourseStart.Date, CourseEnd.Date, Notification.IsToggled, false);
+            await DatabaseService.AddCourse(_selectedTermId, CourseName.Text, CourseTitle.Text, CourseDescription.Text, CourseStart.Date, CourseEnd.Date, CourseNotes.Text, Notification.IsToggled, bool.Parse(IsPassed.SelectedItem.ToString()));
 			await Navigation.PopAsync();
 
 

@@ -37,17 +37,26 @@ namespace WGU_App.Views
             if (string.IsNullOrWhiteSpace(instructorName.Text))
             {
                 await DisplayAlert("Please enter a name", "Please enter a name", "OK");
+                return;
             }
 
-            if (string.IsNullOrWhiteSpace(instructorEmail.Text))
+            if (string.IsNullOrWhiteSpace(instructorEmail.Text) || instructorEmail.Text.Length < 7)
             {
-                await DisplayAlert("Please enter a email", "Please enter a email", "OK");
+                await DisplayAlert("Please enter a valid email", "Please enter a valid email", "OK");
+                return;
+            }
+            else if (!instructorEmail.Text.Contains("@") || (!instructorEmail.Text.Contains(".edu") || !instructorEmail.Text.Contains(".com")))
+            {
+                await DisplayAlert("Please enter a valid email", "Please enter a valid email", "OK");
+                return;
             }
 
-            if (string.IsNullOrWhiteSpace(instructorPhone.Text))
+            if (string.IsNullOrWhiteSpace(instructorPhone.Text) || instructorPhone.Text.Length < 10)
             {
                 await DisplayAlert("Please enter a phone", "Please enter a phone", "OK");
+                return;
             }
+
 
             await DatabaseService.AddCourseInstructor(selectedCourseId, instructorName.Text, instructorEmail.Text, instructorPhone.Text);
             await Navigation.PopAsync();

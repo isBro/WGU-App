@@ -65,11 +65,14 @@
 
                 </Picker>
 
-                <Label Grid.Row="9" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"></Label>
-                <Button Grid.Row="9" Grid.Column="1" FontSize="Medium" VerticalOptions="Center" Text="Share" Font="Medium" x:Name="ShareButton" Clicked="ShareButton_Clicked"></Button>
+                <Label Grid.Row="9" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold">Notes</Label>
+                <Entry Grid.Row="9" Grid.Column="1" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" x:Name="CourseNotes" Text="{Binding CourseNotes}"/>
 
                 <Label Grid.Row="10" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"></Label>
-                <Button Grid.Row="10" Grid.Column="1" FontSize="Medium" VerticalOptions="Center" Text="Share URL" Font="Medium" x:Name="ShareUrl" Clicked="ShareUri_Clicked"></Button>
+                <Button Grid.Row="10" Grid.Column="1" FontSize="Medium" VerticalOptions="Center" Text="Share" Font="Medium" x:Name="ShareButton" Clicked="ShareButton_Clicked"></Button>
+
+                <Label Grid.Row="11" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold"></Label>
+                <Button Grid.Row="11" Grid.Column="1" FontSize="Medium" VerticalOptions="Center" Text="Share URL" Font="Medium" x:Name="ShareUrl" Clicked="ShareUri_Clicked"></Button>
 
             </Grid>
 
